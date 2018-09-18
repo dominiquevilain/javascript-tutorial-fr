@@ -57,65 +57,68 @@ Par exemple, JavaScript dans le navigateur est capable de :
 - Obtenir et définir des cookies, poser des questions au visiteur, afficher des messages.
 - Se souvenir des données du côté client ("stockage local").
 
-## What CAN'T in-browser JavaScript do?
+## Qu'est-ce que le JavaScript ne peut pas faire dans le navigateur? 
 
-JavaScript's abilities in the browser are limited for the sake of the user's safety. The aim is to prevent an evil webpage from accessing private information or harming the user's data.
+Les capacités de JavaScript dans le navigateur sont limitées pour la sécurité de l'utilisateur. L'objectif est d'empêcher une page Web malfaisante d'accéder à des informations privées ou de nuire aux données de l'utilisateur.
 
-The examples of such restrictions are:
+Les exemples de telles restrictions sont:
 
-- JavaScript on a webpage may not read/write arbitrary files on the hard disk, copy them or execute programs. It has no direct access to OS system functions.
+- JavaScript sur une page Web ne peut pas lire / écrire des fichiers arbitrairement sur le disque dur, les copier ou exécuter des programmes. Il n'a pas d'accès direct aux fonctions du système OS.
 
-    Modern browsers allow it to work with files, but the access is limited and only provided if the user does certain actions, like "dropping" a file into a browser window or selecting it via an `<input>` tag.
+    Les navigateurs modernes lui permettent de fonctionner avec des fichiers, mais l'accès est limité et n'est fourni que si l'utilisateur effectue certaines actions, comme «déposer» un fichier dans une fenêtre de navigateur ou le sélectionner via une balise `<input>`.
 
-    There are ways to interact with camera/microphone and other devices, but they require a user's explicit permission. So a JavaScript-enabled page may not sneakily enable a web-camera, observe the surroundings and send the information to the [NSA](https://en.wikipedia.org/wiki/National_Security_Agency).
-- Different tabs/windows generally do not know about each other. Sometimes they do, for example when one window uses JavaScript to open the other one. But even in this case, JavaScript from one page may not access the other if they come from different sites (from a different domain, protocol or port).
+    Il existe des moyens d’interagir avec une webcam / microphone et d’autres appareils, mais ils nécessitent une autorisation explicite de l’utilisateur. Ainsi, une page compatible avec JavaScript ne permet pas d'activer une caméra Web, d'observer l'environnement et d'envoyer les informations à la [NSA](https://fr.wikipedia.org/wiki/National_Security_Agency).
 
-    This is called the "Same Origin Policy". To work around that, *both pages* must contain a special JavaScript code that handles data exchange.
+- Différents onglets / fenêtres ne se connaissent généralement pas. Parfois, ils se croisent, par exemple lorsqu'une fenêtre utilise JavaScript pour ouvrir l'autre. Mais même dans ce cas, le JavaScript d'une page ne peut pas accéder à l'autre s'il provient de sites différents (provenant d'un autre domaine, protocole ou port).
 
-    The limitation is again for user's safety. A page from `http://anysite.com` which a user has opened must not be able to access another browser tab with the URL `http://gmail.com` and steal information from there.
-- JavaScript can easily communicate over the net to the server where the current page came from. But its ability to receive data from other sites/domains is crippled. Though possible, it requires explicit agreement (expressed in HTTP headers) from the remote side. Once again, that's safety limitations.
+    C'est ce qu'on appelle la "politique de même origine"(“Same Origin Policy”). Pour contourner cette sécurité, *les deux pages* doivent contenir un code JavaScript spécial qui gère l'échange de données.
+
+    Cette limitation concerne également la sécurité de l'utilisateur. Une page de `http://autresite.com` qu'un utilisateur a ouverte ne doit pas pouvoir accéder à un autre onglet du navigateur avec l'URL `http://gmail.com` et y voler des informations.
+
+- JavaScript peut facilement communiquer sur le net avec le serveur d'où provient la page en cours. Mais sa capacité à recevoir des données d'autres sites / domaines est paralysée. Bien que possible, il nécessite un accord explicite (exprimé dans les en-têtes HTTP) du côté distant. Encore une fois, ce sont des limites de sécurité.
 
 ![](limitations.png)
 
-Such limits do not exist if JavaScript is used outside of the browser, for example on a server. Modern browsers also allow installing plugin/extensions which may get extended permissions.
+De telles limites n'existent pas si JavaScript est utilisé en dehors du navigateur, par exemple sur un serveur. Les navigateurs modernes permettent également l’installation de plug-ins / extensions susceptibles d’obtenir des autorisations étendues.
 
-## What makes JavaScript unique?
+## Qu'est-ce qui rend JavaScript unique?
 
-There are at least *three* great things about JavaScript:
+Il y a au moins trois bonnes choses à propos de JavaScript:
 
 ```compare
-+ Full integration with HTML/CSS.
-+ Simple things done simply.
-+ Supported by all major browsers and enabled by default.
++ Intégration complète avec HTML / CSS.
++ Les choses simples sont faites simplement.
++ Pris en charge par tous les principaux navigateurs et activé par défaut.
 ```
 
-Combined, these three things exist only in JavaScript and no other browser technology.
+Combinés, ces trois éléments n'existent que dans JavaScript et dans aucune autre technologie de navigateur.
 
-That's what makes JavaScript unique. That's why it's the most widespread tool to create browser interfaces.
+C’est ce qui rend JavaScript unique. C’est pourquoi c’est l’outil le plus répandu pour créer des interfaces de navigateur.
 
-While planning to learn a new technology, it's beneficial to check its perspectives. So let's move on to the modern trends that include new languages and browser abilities.
+Lorsqu'on prévoit d’apprendre une nouvelle technologie, il est utile de vérifier ses perspectives. Passons donc aux tendances modernes qui incluent de nouveaux langages et capacités de navigation.
 
 
-## Languages "over" JavaScript
+## Les langages "par dessus" JavaScript
 
-The syntax of JavaScript does not suit everyone's needs. Different people want different features.
+La syntaxe de JavaScript ne convient pas aux besoins de tous. Différentes personnes veulent des fonctionnalités différentes.
 
-That's to be expected, because projects and requirements are different for everyone.
+Il faut s’y attendre, parce que les projets et les exigences sont différents pour tous.
 
-So recently a plethora of new languages appeared, which are *transpiled* (converted) to JavaScript before they run in the browser.
+Donc, récemment, une pléthore de nouveaux langages sont apparus, qui sont *transposés* (convertis) en JavaScript avant leur exécution dans le navigateur.
 
-Modern tools make the transpilation very fast and transparent, actually allowing developers to code in another language and autoconverting it "under the hood".
+Les outils modernes rendent la [transpilation](https://fr.wiktionary.org/wiki/transpilation) très rapide et transparente, permettant aux développeurs de coder dans une autre langue et de la convertir automatiquement "sous le capot".
 
-Examples of such languages:
 
-- [CoffeeScript](http://coffeescript.org/) is a "syntactic sugar" for JavaScript, it introduces shorter syntax, allowing to write more precise and clear code. Usually Ruby devs like it.
-- [TypeScript](http://www.typescriptlang.org/) is concentrated on adding "strict data typing", to simplify development and support of complex systems. It is developed by Microsoft.
-- [Dart](https://www.dartlang.org/) is a standalone language that has its own engine that runs in non-browser environments (like mobile apps). It was initially offered by Google as a replacement for JavaScript, but as of now, browsers require it to be transpiled to JavaScript just like the ones above.
+Exemples de ce genre de langages :
 
-There are more. Of course even if we use one of those languages, we should also know JavaScript, to really understand what we're doing.
+- [CoffeeScript](http://coffeescript.org/) est un "sucre syntaxique" pour JavaScript, il introduit une syntaxe plus courte, permettant d’écrire du code plus précis et plus clair. Habituellement, les développeurs Ruby l'aiment bien.
+- [TypeScript](http://www.typescriptlang.org/) se concentre sur l'ajout de "typage strict des données" pour simplifier le développement et la prise en charge de systèmes complexes. Il est développé par Microsoft.
+- [Dart](https://www.dartlang.org/) est un langage autonome doté de son propre moteur qui s'exécute dans des environnements autres que les navigateurs (comme les applications mobiles). Il était initialement proposé par Google en remplacement de JavaScript, mais pour le moment, les navigateurs exigent qu’il soit transposé en JavaScript, tout comme ceux ci-dessus.
 
-## Summary
+Il y en a plus. Bien sûr, même si nous utilisons un de ces langages, nous devrions également connaître le langage JavaScript, pour bien comprendre ce que nous faisons.
 
-- JavaScript was initially created as a browser-only language, but now it is used in many other environments as well.
-- At this moment, JavaScript has a unique position as the most widely-adopted browser language with full integration with HTML/CSS.
-- There are many languages that get "transpiled" to JavaScript and provide certain features. It is recommended to take a look at them, at least briefly, after mastering JavaScript.
+## Résumé
+
+- JavaScript a été initialement créé en tant que langage de navigateur uniquement, mais il est désormais également utilisé dans de nombreux autres environnements.
+- En ce moment, JavaScript occupe une position unique en tant que langage de navigateur le plus largement adopté avec une intégration complète avec HTML / CSS.
+- De nombreux langages sont "transpilés" en JavaScript et fournissent certaines fonctionnalités. Il est recommandé d'y jeter un coup d'œil, au moins brièvement, après avoir maîtrisé JavaScript.
