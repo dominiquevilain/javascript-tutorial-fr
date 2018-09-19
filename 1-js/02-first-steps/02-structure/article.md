@@ -135,11 +135,11 @@ alert('Hello');
 alert('World');
 ```
 
-```smart header="Use hotkeys!"
+```smart header="Utiliser les raccourcis !"
 Dans la plupart des éditeurs, une ligne de code peut être commentée par le raccourci `key:Ctrl+/` pour un commentaire sur une seule ligne et quelque chose comme `key:Ctrl+Shift+/` -- pour les commentaires multilignes (sélectionnez un morceau de code et appuyez sur la combinaison de touches). Pour Mac essayez `key:Cmd` au lieu de `key:Ctrl`.
 ```
 
-````warn header="Nested comments are not supported!"
+````warn header="Les commentaires imbriqués ne sont pas supportés !"
 Il peut ne pas y avoir `/*...*/` à l'intérieur d'un autre `/*...*/`.
 
 Un tel code se terminera avec une erreur :
