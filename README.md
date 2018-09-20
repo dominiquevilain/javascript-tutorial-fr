@@ -15,7 +15,7 @@ This repository hosts the content of the Modern JavaScript Tutorial, published a
 | Persian | https://github.com/Goudarz/javascript-tutorial-fa | @Goudarz | ![](http://translate-hook.javascript.info/stats/fa.svg) | - |
 | Russian | https://github.com/iliakan/javascript-tutorial-ru | @iliakan |  | https://learn.javascript.ru |
 | Turkish | https://github.com/sahinyanlik/javascript-tutorial-tr | @sahinyanlik | ![](http://translate-hook.javascript.info/stats/tr.svg) | - |
-| French | https://github.com/HachemiH/HachemiH-javascript-tutorial-fr | @HachemiH | ![](http://translate-hook.javascript.info/stats/fr.svg) | - |
+| French | https://github.com/HachemiH/javascript-tutorial-fr | @HachemiH | ![](http://translate-hook.javascript.info/stats/fr.svg) | - |
 
 If you'd like to translate it into your language, please clone the repository, change its name to `javascript-tutorial-...` (by the language) and [create an issue](https://github.com/iliakan/javascript-tutoria-en/issues/new) for me to add you to the list.
 
