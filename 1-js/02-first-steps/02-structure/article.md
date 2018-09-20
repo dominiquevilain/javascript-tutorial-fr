@@ -55,28 +55,28 @@ Les erreurs qui surviennent dans de tels cas sont assez difficiles à trouver et
 ````smart header="Un exemple d'erreur"
 Si vous êtes curieux de voir un exemple concret d’une telle erreur, vérifiez ce code :
 
-​```js run
+```js run
 [1, 2].forEach(alert)
-​```
+```
 
 Pas besoin de penser à la signification des crochets `[]` et `forEach` pour le moment. Nous les étudierons plus tard, pour l'instant, cela n'a pas d'importance. Retenons simplement le résultat: il affiche `1`, puis `2`.
 
 Maintenant, ajoutons un `alert` avant le code et **ne le terminons pas** par un point-virgule :
 
-​```js run no-beautify
+```js run no-beautify
 alert("There will be an error")
 
 [1, 2].forEach(alert)
-​```
+```
 
 Maintenant, si nous l'exécutons, seul le premier `alert` est affiché, puis nous avons une erreur!
 
 Mais tout va bien à nouveau si on ajoute un point-virgule après `alert` :
-​```js run
+```js run
 alert("Tout va bien maintenant");
 
 [1, 2].forEach(alert)  
-​```
+```
 
 Nous avons maintenant le message `"Tout va bien maintenant"`, puis `1` et `2`.
 
@@ -85,9 +85,9 @@ L'erreur dans la variante sans point-virgule se produit car JavaScript n'impliqu
 
 Ainsi, le point-virgule n'étant pas inséré automatiquement, le code du premier exemple est traité comme une seule instruction. C'est comme ça que le moteur le voit :
 
-​```js run no-beautify
+```js run no-beautify
 alert("Il y aura une erreur")[1, 2].forEach(alert)
-​```
+```
 
 Mais ce devrait être deux déclarations distinctes, pas une seule. Une telle fusion dans ce cas est tout simplement erronée, d'où l'erreur. Il y a d'autres situations où une telle chose peut se produire.
 ````
@@ -144,12 +144,12 @@ Il peut ne pas y avoir `/*...*/` à l'intérieur d'un autre `/*...*/`.
 
 Un tel code se terminera avec une erreur :
 
-​```js run no-beautify
+```js run no-beautify
 /*
   /* commentaire imbriqué ?!? */
 */
 alert( 'World' );
-​```
+```
 ````
 
 N'hésitez pas à commenter votre code.
