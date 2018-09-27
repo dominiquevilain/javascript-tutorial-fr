@@ -68,7 +68,7 @@ let test = prompt("Test", ''); // <-- pour IE
 
 ## confirm
 
-The syntax:
+La syntaxe :
 
 ```js
 result = confirm(question);
