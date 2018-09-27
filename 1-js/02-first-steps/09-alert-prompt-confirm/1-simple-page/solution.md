@@ -1,11 +1,11 @@
-JavaScript-code:
+Code JavaScript :
 
 ```js demo run
-let name = prompt("What is your name?", "");
+let name = prompt("Comment vous appelez-vous ?", "");
 alert(name);
 ```
 
-The full page:
+La page complète :
 
 ```html
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ The full page:
   <script>
     'use strict';
 
-    let name = prompt("What is your name?", "");
+    let name = prompt("Comment vous appelez-vous ?", "");
     alert(name);
   </script>
 
