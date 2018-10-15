@@ -231,28 +231,28 @@ La directive `break` est activée sur la ligne `(*)` si l'utilisateur entre une 
 
 La combinaison "boucle infinie + `break` au besoin" est idéale pour les situations où la condition doit être vérifiée non pas au début / à la fin de la boucle, mais au milieu, voire à plusieurs endroits du corps.
 
-## Continue to the next iteration [#continue]
+## Continuer jusqu'à la prochaine itération [#continue]
 
-The `continue` directive is a "lighter version" of `break`. It doesn't stop the whole loop. Instead it stops the current iteration and forces the loop to start a new one (if the condition allows).
+La directive `continue` est une "version plus légère" de `break`. Cela n'arrête pas toute la boucle. Au lieu de cela, elle arrête l'itération en cours et force la boucle à en démarrer une nouvelle (si la condition le permet).
 
-We can use it if we're done on the current iteration and would like to move on to the next.
+Nous pouvons l’utiliser si nous avons terminé l’itération en cours et aimerions passer à la suivante.
 
-The loop below uses `continue` to output only odd values:
+La boucle ci-dessous utilise `continue` pour ne produire que des valeurs impaires :
 
 ```js run no-beautify
 for (let i = 0; i < 10; i++) {
 
-  // if true, skip the remaining part of the body
+  // si vrai, saute le reste du corps
   *!*if (i % 2 == 0) continue;*/!*
 
-  alert(i); // 1, then 3, 5, 7, 9
+  alert(i); // 1, ensuite 3, 5, 7, 9
 }
 ```
 
-For even values of `i` the `continue` directive stops body execution, passing the control to the next iteration of `for` (with the next number). So the `alert` is only called for odd values.
+Pour les valeurs paires de `i`, la directive `continue` arrête l'exécution du corps en passant le contrôle à la prochaine itération de `for` (avec le nombre suivant). Donc, l'`alert` n'est appelée que pour les valeurs impaires.
 
-````smart header="The directive `continue` helps to decrease nesting level"
-A loop that shows odd values could look like this:
+````smart header="La directive `continue` aide à réduire le niveau d'imbrication"
+Une boucle affichant des valeurs impaires pourrait ressembler à ceci :
 
 ```js
 for (let i = 0; i < 10; i++) {
@@ -264,15 +264,15 @@ for (let i = 0; i < 10; i++) {
 }
 ```
 
-From a technical point of view it's identical to the example above. Surely, we can just wrap the code in the `if` block instead of `continue`.
+D'un point de vue technique, c'est identique à l'exemple du dessus. Certes, nous pouvons simplement envelopper le code dans un bloc `if` au lieu de `continue`.
 
-But as a side-effect we got one more nesting level (the `alert` call inside the curly braces). If the code inside `if` is longer than a few lines, that may decrease the overall readability.
+Mais comme effet secondaire, nous avons obtenu un niveau d'imbrication supplémentaire (l'appel de l'`alert` à l'intérieur des accolades). Si le code à l'intérieur est plus long que quelques lignes, la lisibilité globale peut en être réduite.
 ````
 
-````warn header="No `break/continue` to the right side of '?'"
-Please note that syntax constructs that are not expressions cannot be used with the ternary operator `?`. In particular, directives such as `break/continue` are disallowed there.
+````warn header="Pas de `break/continue` à droite de '?'"
+Veuillez noter que les constructions de syntaxe qui ne sont pas des expressions ne peuvent pas être utilisées avec l'opérateur ternaire `?`. Tout particulièrement les directives telles que `break/continue` ne sont pas autorisées.
 
-For example, if we take this code:
+Par exemple, si nous prenons ce code :
 
 ```js
 if (i > 5) {
@@ -282,24 +282,24 @@ if (i > 5) {
 }
 ```
 
-...And rewrite it using a question mark:
+… Et le réécrivons à l'aide d'un point d'interrogation :
 
 
 ```js no-beautify
-(i > 5) ? alert(i) : *!*continue*/!*; // continue not allowed here
+(i > 5) ? alert(i) : *!*continue*/!*; // continue n'est pas autorisé ici
 ```
 
-...Then it stops working. The code like this will give a syntax error:
+… Ensuite cesse de fonctionner. Le code comme celui-ci donnera une erreur de syntaxe :
 
 
-That's just another reason not to use a question mark operator `?` instead of `if`.
+C’est une autre raison pour ne pas utiliser l'opérateur point d’interrogation `?` au lieu de `if`.
 ````
 
-## Labels for break/continue
+## Des labels pour break/continue
 
-Sometimes we need to break out from multiple nested loops at once.
+Parfois, nous devons sortir de plusieurs boucles imbriquées en même temps.
 
-For example, in the code below we loop over `i` and `j` prompting for coordinates `(i, j)` from `(0,0)` to `(3,3)`:
+Par exemple, dans le code ci-dessous, nous passons en boucle sur `i` et `j` pour demander les coordonnées `(i, j)` de `(0,0)` à `(3,3)` :
 
 ```js run no-beautify
 for (let i = 0; i < 3; i++) {
@@ -308,7 +308,7 @@ for (let i = 0; i < 3; i++) {
 
     let input = prompt(`Value at coords (${i},${j})`, '');
 
-    // what if I want to exit from here to Done (below)?
+    // Et si je veux sortir d'ici à Done (ci-dessous) ?
 
   }
 }
@@ -316,20 +316,20 @@ for (let i = 0; i < 3; i++) {
 alert('Done!');
 ```
 
-We need a way to stop the process if the user cancels the input.
+Nous avons besoin d'un moyen d'arrêter le processus si l'utilisateur annule la saisie.
 
-The ordinary `break` after `input` would only break the inner loop. That's not sufficient. Labels come to the rescue.
+Le `break` ordinaire après `input` ne ferait que briser la boucle intérieure. Ce n’est pas suffisant. Les *labels* viennent à la rescousse.
 
-A *label* is an identifier with a colon before a loop:
+Une *label* est un identifiant avec deux points avant une boucle :
 ```js
 labelName: for (...) {
   ...
 }
 ```
 
-The `break <labelName>` statement in the loop breaks out to the label.
+L'instruction `break <labelName>` dans la boucle interrompt tout le bloc de code relatif au label.
 
-Like here:
+Comme ici :
 
 ```js run no-beautify
 *!*outer:*/!* for (let i = 0; i < 3; i++) {
@@ -338,51 +338,51 @@ Like here:
 
     let input = prompt(`Value at coords (${i},${j})`, '');
 
-    // if an empty string or canceled, then break out of both loops
+    // si une chaîne est vide ou annulée, alors rompre les deux boucles
     if (!input) *!*break outer*/!*; // (*)
 
-    // do something with the value...
+    // faire quelque chose avec la valeur …
   }
 }
 alert('Done!');
 ```
 
-In the code above `break outer` looks upwards for the label named `outer` and breaks out of that loop.
+Dans le code ci-dessus, `break outer` regarde vers le haut le label `outer` et sort de cette boucle.
 
-So the control goes straight from `(*)` to `alert('Done!')`.
+Donc, le contrôle va directement de `(*)` à `alert('Done!')`.
 
-We can also move the label onto a separate line:
+Nous pouvons également déplacer le label sur une ligne séparée :
 
 ```js no-beautify
 outer:
 for (let i = 0; i < 3; i++) { ... }
 ```
 
-The `continue` directive can also be used with a label. In this case the execution jumps to the next iteration of the labeled loop.
+La directive `continue` peut également être utilisée avec un label. Dans ce cas, l'exécution passe à l'itération suivante de la boucle labelisée.
 
-````warn header="Labels are not a \"goto\""
-Labels do not allow us to jump into an arbitrary place of code.
+````warn header="Les labels ne sont pas des \"goto\""
+Les labels ne nous permettent pas de sauter de manière arbitraire dans le code.
 
-For example, it is impossible to do this:
+Par exemple, il est impossible de faire ceci :
 ```js
-break label;  // jumps to label? No.
+break label;  // Sauter au label ? Non.
 
 label: for (...)
 ```
 
-The call to a `break/continue` is only possible from inside the loop, and the label must be somewhere upwards from the directive.
+L'appel d'un `break/continue` n'est possible qu'à partir de l'intérieur de la boucle et le libellé doit se situer quelque part au dessus de la directive.
 ````
 
-## Summary
+## Résumé
 
-We covered 3 types of loops:
+Nous avons couvert 3 types de boucles :
 
-- `while` -- The condition is checked before each iteration.
-- `do..while` -- The condition is checked after each iteration.
-- `for (;;)` -- The condition is checked before each iteration, additional settings available.
+- `while` -- La condition est vérifiée avant chaque itération.
+- `do..while` -- La condition est vérifiée après chaque itération.
+- `for (;;)` -- La condition est vérifiée avant chaque itération, des paramètres supplémentaires sont disponibles.
 
-To make an "infinite" loop, usually the `while(true)` construct is used. Such a loop, just like any other, can be stopped with the `break` directive.
+Pour créer une boucle "infinie", on utilise généralement la construction `while(true)`. Une telle boucle, comme toute autre, peut être stoppée avec la directive `break`.
 
-If we don't want to do anything on the current iteration and would like to forward to the next one, the `continue` directive does it.
+Si nous ne voulons rien faire avec l’itération actuelle et que nous souhaitons avancer jusqu'à la suivante, la directive `continue` nous permet de faire cela.
 
-`break/continue` support labels before the loop. A label is the only way for `break/continue` to escape the nesting and go to the outer loop.
+`break/continue` accepte les labels précédents la boucle. Un label est le seul moyen de `break/continue` pour échapper à l'imbrication et accéder en dehors de la boucle.
