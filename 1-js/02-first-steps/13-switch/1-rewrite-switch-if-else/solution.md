@@ -1,20 +1,20 @@
-To precisely match the functionality of `switch`, the `if` must use a strict comparison `'==='`.
+Pour correspondre précisément à la fonctionnalité du `switch`, le `if` doit utiliser une comparaison stricte `'==='`.
 
-For given strings though, a simple `'=='` works too.
+Cependant, pour des chaînes de caractères données, un simple `'=='` fonctionne également.
 
 ```js no-beautify
 if(browser == 'Edge') {
-  alert("You've got the Edge!");
+  alert("Vous avez le navigateur Edge !");
 } else if (browser == 'Chrome'
  || browser == 'Firefox'
  || browser == 'Safari'
  || browser == 'Opera') {
-  alert( 'Okay we support these browsers too' );
+  alert( 'Ok nous supportons ces navigateurs aussi' );
 } else {
-  alert( 'We hope that this page looks ok!' );
+  alert( "Nous espérons que cette page s'affiche bien" );
 }
 ```
 
-Please note: the construct `browser == 'Chrome' || browser == 'Firefox' …` is split into multiple lines for better readability.
+Remarque: la construction `browser == 'Chrome' || navigateur == 'Firefox'…` est divisée en plusieurs lignes pour une meilleure lisibilité.
 
-But the `switch` construct is still cleaner and more descriptive.
+Mais la construction `switch` est toujours plus propre et plus descriptive.
