@@ -14,8 +14,8 @@ let x = prompt("x?", '');
 let n = prompt("n?", '');
 
 if (n < 1) {
-  alert(`Power ${n} is not supported,
-    use an integer greater than 0`);
+  alert(`Puissance de ${n} n'est pas supporté,
+    utilisez un entier supérieur à 0`);
 } else {
   alert( pow(x, n) );
 }

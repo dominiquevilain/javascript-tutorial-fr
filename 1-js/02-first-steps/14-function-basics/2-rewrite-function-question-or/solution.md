@@ -1,17 +1,17 @@
-Using a question mark operator `'?'`:
+En utilisant un opérateur point d’interrogation `'?'` :
 
 ```js
 function checkAge(age) {
-  return (age > 18) ? true : confirm('Did parents allow you?');
+  return (age > 18) ? true : confirm('Les parents vous ont-ils permis ?');
 }
 ```
 
-Using OR `||` (the shortest variant):
+En utilisant OU `||` (la variante la plus courte) :
 
 ```js
 function checkAge(age) {
-  return (age > 18) || confirm('Did parents allow you?');
+  return (age > 18) || confirm('Les parents vous ont-ils permis ?');
 }
 ```
 
-Note that the parentheses around `age > 18` are not required here. They exist for better readabilty.
+Notez que les parenthèses autour de `age > 18` ans ne sont pas obligatoires ici. Ils existent pour une meilleure lisibilité.
