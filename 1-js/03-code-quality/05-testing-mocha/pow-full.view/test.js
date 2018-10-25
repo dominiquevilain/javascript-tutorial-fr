@@ -1,10 +1,10 @@
 describe("pow", function() {
 
-  describe("raises x to power n", function() {
+  describe("élève x à la puissance n", function() {
 
     function makeTest(x) {
       let expected = x * x * x;
-      it(`${x} in the power 3 is ${expected}`, function() {
+      it(`${x} à la puissance 3 est ${expected}`, function() {
         assert.equal(pow(x, 3), expected);
       });
     }
@@ -15,11 +15,11 @@ describe("pow", function() {
 
   });
 
-  it("if n is negative, the result is NaN", function() {
+  it("si n est négatif, le résultat est NaN", function() {
     assert.isNaN(pow(2, -1));
   });
 
-  it("if n is not integer, the result is NaN", function() {
+  it("si n n'est pas un entier, le résultat est NaN", function() {
     assert.isNaN(pow(2, 1.5));
   });
 

@@ -28,7 +28,7 @@ Laissez les fonctionnalités du langage subtiles vous guider.
 Par exemple, jetez un oeil à cet opérateur ternaire `'?'` :
 
 ```js
-// taken from a well-known javascript library
+// tiré d'une bibliothèque javascript bien connue
 i = i ? i < 0 ? Math.max(0, len + i) : i : 0;
 ```
 
@@ -40,7 +40,6 @@ Dites-leur que le plus court est toujours mieux. Initiez-les dans les chemins du
 
 ```quote author="Laozi (Tao Te Ching)"
 Le Dao se cache sans mots. Seul le Dao est bien commencé et bien terminé.
-completed.
 ```
 
 Une autre façon de coder plus rapidement consiste à utiliser des noms de variable d'une seule lettre partout. Comme `a`, `b` ou `c`.
@@ -174,8 +173,8 @@ En effet, d’une part, quelque chose s’écrit: `super ..`, `mega ..`, `nice .
 ## Chevaucher des variables externes
 
 ```quote author="Guan Yin Zi"
-Lorsque vous êtes dans la lumière, vous ne pouvez rien voir dans l’obscurité.<br>
-Lorsque dans l'obscurité, on peut tout voir dans la lumière.
+Lorsqu'on est dans la lumière, on ne peut rien voir dans l’obscurité.<br>
+Lorsqu'on est dans l'obscurité, on peut tout voir dans la lumière.
 ```
 
 Utilisez les mêmes noms pour les variables à l'intérieur et à l'extérieur d'une fonction. Aussi simple. Aucun effort requis.

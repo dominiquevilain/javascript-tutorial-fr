@@ -1,10 +1,10 @@
 describe("pow", function() {
 
-  describe("raises x to power n", function() {
+  describe("élève x à la puissance n", function() {
 
     function makeTest(x) {
       let expected = x * x * x;
-      it(`${x} in the power 3 is ${expected}`, function() {
+      it(`${x} à la puissance 3 est ${expected}`, function() {
         assert.equal(pow(x, 3), expected);
       });
     }
