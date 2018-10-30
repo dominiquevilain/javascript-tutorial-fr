@@ -2,9 +2,9 @@ importance: 5
 
 ---
 
-# Constant objects?
+# Objets constants ?
 
-Is it possible to change an object declared with `const`, how do you think?
+Est-il possible de changer un objet déclaré avec `const`, comment ?
 
 ```js
 const user = {

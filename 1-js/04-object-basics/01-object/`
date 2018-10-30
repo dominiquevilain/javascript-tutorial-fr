@@ -334,19 +334,19 @@ Des situations comme celle-ci se produisent très rarement, parce que `undefined
 ````
 
 
-## La boucle "for…in"
+## The "for..in" loop
 
-Pour parcourir toutes les clés d'un objet, il existe une forme spéciale de boucle : `for..in`. C'est une chose complètement différente de la construction `for(;;)` que nous avons étudiée auparavant.
+To walk over all keys of an object, there exists a special form of the loop: `for..in`. This is a completely different thing from the `for(;;)` construct that we studied before.
 
-La syntaxe :
+The syntax:
 
 ```js
 for(key in object) {
-  // exécute le corps pour chaque clé parmi les propriétés de l'objet
+  // executes the body for each key among object properties
 }
 ```
 
-Par exemple, affichons toutes les propriétés de `user` :
+For instance, let's output all properties of `user`:
 
 ```js run
 let user = {
@@ -358,29 +358,29 @@ let user = {
 for(let key in user) {
   // keys
   alert( key );  // name, age, isAdmin
-  // valeurs pour les clés
+  // values for the keys
   alert( user[key] ); // John, 30, true
 }
 ```
 
-Notez que toutes les constructions "for" nous permettent de déclarer la variable en boucle à l'intérieur de la boucle, comme `let key` ici.
+Note that all "for" constructs allow us to declare the looping variable inside the loop, like `let key` here.
 
-En outre, nous pourrions utiliser un autre nom de variable ici au lieu de `key`. Par exemple, `"for(let prop in obj)"` est également largement utilisé.
+Also, we could use another variable name here instead of `key`. For instance, `"for(let prop in obj)"` is also widely used.
 
 
-### Ordonné comme un objet
+### Ordered like an object
 
-Les objets sont-ils ordonnés ? En d'autres termes, si nous parcourons un objet en boucle, obtenons-nous toutes les propriétés dans le même ordre où elles ont été ajoutées ? Pouvons-nous compter sur cela ?
+Are objects ordered? In other words, if we loop over an object, do we get all properties in the same order they were added? Can we rely on this?
 
-La réponse courte est : "ordonné de manière spéciale" : les propriétés des entiers sont triées, les autres apparaissent dans l'ordre de création. Nous allons voir cela en détails.
+The short answer is: "ordered in a special fashion": integer properties are sorted, others appear in creation order. The details follow.
 
-Par exemple, considérons un objet avec les indicatifs de téléphone par pays :
+As an example, let's consider an object with the phone codes:
 
 ```js run
 let codes = {
-  "49": "Allemagne",
-  "41": "Suisse",
-  "44": "Angleterre",
+  "49": "Germany",
+  "41": "Switzerland",
+  "44": "Great Britain",
   // ..,
   "1": "USA"
 };
@@ -392,54 +392,54 @@ for(let code in codes) {
 */!*
 ```
 
-L'objet peut être utilisé pour suggérer une liste d'options à l'utilisateur. Si nous créons un site principalement pour le public allemand, nous voulons probablement que `49` soit le premier.
+The object may be used to suggest a list of options to the user. If we're making a site mainly for German audience then we probably want `49` to be the first.
 
-Mais si nous exécutons ce code, nous voyons une image totalement différente :
+But if we run the code, we see a totally different picture:
 
-- USA (1) passe en premier
-- puis Suisse (41) et ainsi de suite.
+- USA (1) goes first
+- then Switzerland (41) and so on.
 
-Les indicatifs de téléphone sont classés par ordre croissant, car ce sont des entiers. Donc on voit `1, 41, 44, 49`.
+The phone codes go in the ascending sorted order, because they are integers. So we see `1, 41, 44, 49`.
 
-````smart header="Propriétés entier (integer properties) ? Qu'est-ce que c'est ?"
-Le terme "propriété entier" (integer properties) désigne ici une chaîne de caractères pouvant être convertie en un entier à partir de-et-sans modification.
+````smart header="Integer properties? What's that?"
+The "integer property" term here means a string that can be converted to-and-from an integer without a change.
 
-Ainsi, "49" est un nom de propriété entier, parce que lorsqu'il est transformé en nombre entier et inversement, il reste identique. Mais "+49" et "1.2" ne le sont pas :
+So, "49" is an integer property name, because when it's transformed to an integer number and back, it's still the same. But "+49" and "1.2" are not:
 
 ```js run
-// Math.trunc est une fonction intégrée qui supprime la partie décimale
-alert( String(Math.trunc(Number("49"))) ); // "49", idem, propriété entier (integer property)
-alert( String(Math.trunc(Number("+49"))) ); // "49", pas pareil "+49" ⇒ pas une propriété entier (integer property)
-alert( String(Math.trunc(Number("1.2"))) ); // "1", pas pareil "1.2" ⇒ pas une propriété entier (integer property)
+// Math.trunc is a built-in function that removes the decimal part
+alert( String(Math.trunc(Number("49"))) ); // "49", same, integer property
+alert( String(Math.trunc(Number("+49"))) ); // "49", not same "+49" ⇒ not integer property
+alert( String(Math.trunc(Number("1.2"))) ); // "1", not same "1.2" ⇒ not integer property
 ```
 ````
 
-… Par contre, si les clés ne sont pas des entiers, elles sont listées dans l'ordre de création, par exemple :
+...On the other hand, if the keys are non-integer, then they are listed in the creation order, for instance:
 
 ```js run
 let user = {
   name: "John",
   surname: "Smith"
 };
-user.age = 25; // Ajouter une clé de plus
+user.age = 25; // add one more
 
 *!*
-// les propriétés non-entiers sont listées dans l'ordre de création
+// non-integer properties are listed in the creation order
 */!*
 for (let prop in user) {
   alert( prop ); // name, surname, age
 }
 ```
 
-Donc, pour résoudre le problème avec les indicatifs de téléphone, nous pouvons "tricher" en rendant ces indicatifs non entiers. Ajouter un signe plus `"+"` avant chaque indicatif suffit.
+So, to fix the issue with the phone codes, we can "cheat" by making the codes non-integer. Adding a plus `"+"` sign before each code is enough.
 
-Comme ceci :
+Like this:
 
 ```js run
 let codes = {
-  "+49": "Allemagne",
-  "+41": "Suisse",
-  "+44": "Angleterre",
+  "+49": "Germany",
+  "+41": "Switzerland",
+  "+44": "Great Britain",
   // ..,
   "+1": "USA"
 };
@@ -449,30 +449,30 @@ for(let code in codes) {
 }
 ```
 
-Maintenant, cela fonctionne comme prévu.
+Now it works as intended.
 
-## Copier par référence
+## Copying by reference
 
-L'une des différences fondamentales entre les objets et les primitives est qu'ils sont stockés et copiés "par référence".
+One of the fundamental differences of objects vs primitives is that they are stored and copied "by reference".
 
-Les valeurs primitives: chaînes de caractères, nombres, booléens - sont attribuées / copiées "comme une seule valeur".
+Primitive values: strings, numbers, booleans -- are assigned/copied "as a whole value".
 
-Par exemple :
+For instance:
 
 ```js
 let message = "Hello!";
 let phrase = message;
 ```
 
-Par conséquent, nous avons deux variables indépendantes, chacune stockant la chaîne de caractères `"Hello!"`.
+As a result we have two independent variables, each one is storing the string `"Hello!"`.
 
 ![](variable-copy-value.png)
 
-Les objets ne sont pas comme ça.
+Objects are not like that.
 
-**Une variable ne stocke pas l'objet lui-même, mais son "adresse en mémoire", autrement dit "une référence".**
+**A variable stores not the object itself, but its "address in memory", in other words "a reference" to it.**
 
-Voici l'image d'un objet :
+Here's the picture for the object:
 
 ```js
 let user = {
@@ -482,25 +482,25 @@ let user = {
 
 ![](variable-contains-reference.png)
 
-Ici, l'objet est stocké quelque part en mémoire. Et la variable `user` a une "référence" à cet objet.
+Here, the object is stored somewhere in memory. And the variable `user` has a "reference" to it.
 
-**Lorsqu'une variable d'objet est copiée - la référence est copiée, l'objet n'est pas dupliqué.**
+**When an object variable is copied -- the reference is copied, the object is not duplicated.**
 
-Si nous imaginons un objet comme une armoire, une variable en est la clé. La copie d'une variable duplique la clé, mais pas l'armoire elle-même.
+If we imagine an object as a cabinet, then a variable is a key to it. Copying a variable duplicates the key, but not the cabinet itself.
 
-Par exemple :
+For instance:
 
 ```js no-beautify
 let user = { name: "John" };
 
-let admin = user; // copier la référence
+let admin = user; // copy the reference
 ```
 
-Maintenant nous avons deux variables, chacune avec la référence au même objet :
+Now we have two variables, each one with the reference to the same object:
 
 ![](variable-copy-reference.png)
 
-Nous pouvons utiliser n’importe quelle variable pour accéder à l'armoire et modifier son contenu :
+We can use any variable to access the cabinet and modify its contents:
 
 ```js run
 let user = { name: 'John' };
@@ -508,46 +508,46 @@ let user = { name: 'John' };
 let admin = user;
 
 *!*
-admin.name = 'Pete'; // modifié par la référence "admin"
+admin.name = 'Pete'; // changed by the "admin" reference
 */!*
 
-alert(*!*user.name*/!*); // 'Pete', les changements sont visibles depuis la référence "user"
+alert(*!*user.name*/!*); // 'Pete', changes are seen from the "user" reference
 ```
 
-L'exemple ci-dessus montre qu'il n'y a qu'un seul objet. Comme si nous avions une armoire avec deux clés et en utilisions une (`admin`) pour y entrer. Ensuite, si nous utilisions plus tard l'autre clé (`user`), nous constaterions des changements.
+The example above demonstrates that there is only one object. As if we had a cabinet with two keys and used one of them (`admin`) to get into it. Then, if we later use the other key (`user`) we would see changes.
 
-### Comparaison par référence
+### Comparison by reference
 
-Les opérateurs d'égalité `==` et d'égalité stricte `===` pour les objets fonctionnent exactement de la même manière.
+The equality `==` and strict equality `===` operators for objects work exactly the same.
 
-**Deux objets ne sont égaux que s’ils sont le même objet.**
+**Two objects are equal only if they are the same object.**
 
-Par exemple, deux variables référencent le même objet, elles sont égales :
+For instance, two variables reference the same object, they are equal:
 
 ```js run
 let a = {};
-let b = a; // copier la référence
+let b = a; // copy the reference
 
-alert( a == b ); // true, les deux variables font référence au même objet
+alert( a == b ); // true, both variables reference the same object
 alert( a === b ); // true
 ```
 
-Et ici, deux objets indépendants ne sont pas égaux, même s'ils sont vides :
+And here two independent objects are not equal, even though both are empty:
 
 ```js run
 let a = {};
-let b = {}; // deux objets indépendants
+let b = {}; // two independent objects
 
 alert( a == b ); // false
 ```
 
-Pour des comparaisons comme `obj1 > obj2` ou pour une comparaison avec une primitive `obj == 5`, les objets sont convertis en primitives. Nous étudierons très bientôt le fonctionnement des conversions d’objets, mais à vrai dire, de telles comparaisons ne sont nécessaires que très rarement et résultent généralement d’une erreur de codage.
+For comparisons like `obj1 > obj2` or for a comparison against a primitive `obj == 5`, objects are converted to primitives. We'll study how object conversions work very soon, but to tell the truth, such comparisons are necessary very rarely and usually are a result of a coding mistake.
 
-### Objet Const
+### Const object
 
-Un objet déclaré comme `const` *peut* être modifié.
+An object declared as `const` *can* be changed.
 
-Par exemple :
+For instance:
 
 ```js run
 const user = {
@@ -561,9 +561,9 @@ user.age = 25; // (*)
 alert(user.age); // 25
 ```
 
-Il peut sembler que la ligne `(*)` cause une erreur, mais non, il n’y a absolument aucun problème. C’est parce que `const` fixe la valeur de `user` lui-même. Et ici, `user` stocke la référence au même objet tout le temps. La ligne `(*)` va à l’intérieur de l’objet, elle ne réaffecte pas `user`.
+It might seem that the line `(*)` would cause an error, but no, there's totally no problem. That's because `const` fixes the value of `user` itself. And here `user` stores the reference to the same object all the time. The line `(*)` goes *inside* the object, it doesn't reassign `user`.
 
-Le `const` donnerait une erreur si nous essayons de définir `user` sur autre chose, par exemple :
+The `const` would give an error if we try to set `user` to something else, for instance:
 
 ```js run
 const user = {
@@ -571,26 +571,26 @@ const user = {
 };
 
 *!*
-// Erreur (ne peut pas réaffecter user)
+// Error (can't reassign user)
 */!*
 user = {
   name: "Pete"
 };
 ```
 
-… Mais que faire si nous voulons créer des propriétés d'objet constantes ? Donc, `user.age = 25` donnerait une erreur. C’est possible aussi. Nous couvrirons cela dans le chapitre <info:property-descriptors>.
+...But what if we want to make constant object properties? So that `user.age = 25` would give an error. That's possible too. We'll cover it in the chapter <info:property-descriptors>.
 
-## Clonage et fusion, Object.assign
+## Cloning and merging, Object.assign
 
-Donc, la copie d'une variable d'objet crée une autre référence au même objet.
+So, copying an object variable creates one more reference to the same object.
 
-Mais que faire si nous avons besoin de dupliquer un objet ? Créer une copie indépendante, un clone ?
+But what if we need to duplicate an object? Create an independent copy, a clone?
 
-C’est également faisable, mais un peu plus difficile, car il n’existe pas de méthode intégrée pour cela en JavaScript. En fait, cela est rarement nécessaire. La copie par référence est bonne la plupart du temps.
+That's also doable, but a little bit more difficult, because there's no built-in method for that in JavaScript. Actually, that's rarely needed. Copying by reference is good most of the time.
 
-Mais si nous le voulons vraiment, nous devons créer un nouvel objet et répliquer la structure de l’existant en itérant sur ses propriétés et en les copiant au niveau primitif.
+But if we really want that, then we need to create a new object and replicate the structure of the existing one by iterating over its properties and copying them on the primitive level.
 
-Comme ceci :
+Like this:
 
 ```js run
 let user = {
@@ -599,32 +599,32 @@ let user = {
 };
 
 *!*
-let clone = {}; // le nouvel objet vide
+let clone = {}; // the new empty object
 
-// copions toutes les propriétés de user dedans
+// let's copy all user properties into it
 for (let key in user) {
   clone[key] = user[key];
 }
 */!*
 
-// maintenant clone est un clone totalement indépendant
-clone.name = "Pete"; // changé les données qu'il contient
+// now clone is a fully independant clone
+clone.name = "Pete"; // changed the data in it
 
-alert( user.name ); // toujours John dans l'objet original
+alert( user.name ); // still John in the original object
 ```
 
-Nous pouvons aussi utiliser la méthode [Object.assign](mdn:js/Object/assign) pour cela.
+Also we can use the method [Object.assign](mdn:js/Object/assign) for that.
 
-La syntaxe est :
+The syntax is:
 
 ```js
 Object.assign(dest[, src1, src2, src3...])
 ```
 
-- Arguments `dest`, et `src1, ..., srcN` (peut être autant que nécessaire) sont des objets.
-- Il copie les propriétés de tous les objets `src1, ..., srcN` dans `dest`. En d'autres termes, les propriétés de tous les arguments à partir du 2e sont copiées dans le 1er. Puis ça renvoit `dest`.
+- Arguments `dest`, and `src1, ..., srcN` (can be as many as needed) are objects.
+- It copies the properties of all objects `src1, ..., srcN` into `dest`. In other words, properties of all arguments starting from the 2nd are copied into the 1st. Then it returns `dest`.
 
-Par exemple, nous pouvons l’utiliser pour fusionner plusieurs objets en un seul :
+For instance, we can use it to merge several objects into one:
 ```js
 let user = { name: "John" };
 
@@ -632,25 +632,25 @@ let permissions1 = { canView: true };
 let permissions2 = { canEdit: true };
 
 *!*
-// copie toutes les propriétés de permissions1 et permissions2 dans user
+// copies all properties from permissions1 and permissions2 into user
 Object.assign(user, permissions1, permissions2);
 */!*
 
-// maintenant user = { name: "John", canView: true, canEdit: true }
+// now user = { name: "John", canView: true, canEdit: true }
 ```
 
-Si l'objet destinataire (`user`) a déjà la même propriété nommée, elle sera écrasée :
+If the receiving object (`user`) already has the same named property, it will be overwritten:
 
 ```js
 let user = { name: "John" };
 
-// écrase name, ajoute isAdmin
+// overwrite name, add isAdmin
 Object.assign(user, { name: "Pete", isAdmin: true });
 
-// maintenant user = { name: "Pete", isAdmin: true }
+// now user = { name: "Pete", isAdmin: true }
 ```
 
-Nous pouvons également utiliser `Object.assign` pour remplacer la boucle pour un clonage simple :
+We also can use `Object.assign` to replace the loop for simple cloning:
 
 ```js
 let user = {
@@ -663,11 +663,11 @@ let clone = Object.assign({}, user);
 */!*
 ```
 
-Il copie toutes les propriétés de `user` dans l'objet vide et le renvoie. En fait, c'est le même principe que la boucle, mais  en plus court.
+It copies all properties of `user` into the empty object and returns it. Actually, the same as the loop, but shorter.
 
-Jusqu'à présent, nous avons supposé que toutes les propriétés de `user` sont primitives. Mais les propriétés peuvent être des références à d'autres objets. Que faire avec elles ?
+Until now we assumed that all properties of `user` are primitive. But properties can be references to other objects. What to do with them?
 
-Comme ceci :
+Like this:
 ```js run
 let user = {
   name: "John",
@@ -680,9 +680,9 @@ let user = {
 alert( user.sizes.height ); // 182
 ```
 
-Maintenant, il ne suffit plus de copier `clone.sizes = user.sizes`, car `user.sizes` est un objet, il sera copié par référence. Donc, `clone` et `user` partageront les mêmes tailles :
+Now it's not enough to copy `clone.sizes = user.sizes`, because the `user.sizes` is an object, it will be copied by reference. So `clone` and `user` will share the same sizes:
 
-Comme ceci :
+Like this:
 ```js run
 let user = {
   name: "John",
@@ -694,48 +694,49 @@ let user = {
 
 let clone = Object.assign({}, user);
 
-alert( user.sizes === clone.sizes ); // true, même objet
+alert( user.sizes === clone.sizes ); // true, same object
 
-// user et clone partagent les mêmes tailles
-user.sizes.width++;       // change une propriété d'un endroit
-alert(clone.sizes.width); // 51, voir le résultat de l'autre endroit
+// user and clone share sizes
+user.sizes.width++;       // change a property from one place
+alert(clone.sizes.width); // 51, see the result from the other one
 ```
 
-Pour résoudre ce problème, nous devons utiliser la boucle de clonage qui examine chaque valeur de `user[key]` et, s’il s’agit d’un objet, répliquer également sa structure. Cela s'appelle un "clonage en profondeur" (deep cloning).
+To fix that, we should use the cloning loop that examines each value of `user[key]` and, if it's an object, then replicate its structure as well. That is called a "deep cloning".
 
-Il existe un algorithme standard pour le clonage en profondeur qui traite le cas ci-dessus et des cas plus complexes, appelé l'[Algorithme de clonage structuré](http://w3c.github.io/html/infrastructure.html#safe-passing-of-structured-data). Pour ne pas réinventer la roue, nous pouvons utiliser une implémentation fonctionnelle de celle-ci à partir de la bibliothèque JavaScript [lodash](https://lodash.com), la méthode s'appelle [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep).
+There's a standard algorithm for deep cloning that handles the case above and more complex cases, called the [Structured cloning algorithm](http://w3c.github.io/html/infrastructure.html#safe-passing-of-structured-data). In order not to reinvent the wheel, we can use a working implementation of it from the JavaScript library [lodash](https://lodash.com), the method is called [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep).
 
 
 
-## Résumé
+## Summary
 
-Les objets sont des tableaux associatifs dotés de plusieurs fonctionnalités spéciales.
+Objects are associative arrays with several special features.
 
-Ils stockent des propriétés (paires clé-valeur), où :
-- Les clés de propriété doivent être des chaînes de caractères ou des symboles (généralement des chaînes de caractères).
-- Les valeurs peuvent être de tout type.
+They store properties (key-value pairs), where:
+- Property keys must be strings or symbols (usually strings).
+- Values can be of any type.
 
-Pour accéder à une propriété, nous pouvons utiliser :
-- La notation par points : `obj.property`.
-- Notation entre crochets `obj["property"]`. Les crochets permettent de prendre la clé d’une variable, comme `obj[varWithKey]`.
+To access a property, we can use:
+- The dot notation: `obj.property`.
+- Square brackets notation `obj["property"]`. Square brackets allow to take the key from a variable, like `obj[varWithKey]`.
 
-Opérateurs supplémentaires :
-- Pour supprimer une propriété : `delete obj.prop`.
-- Pour vérifier si une propriété avec la clé donnée existe : `"key" in obj`.
-- Pour parcourir un objet la boucle : `for(let key in obj)`.
+Additional operators:
+- To delete a property: `delete obj.prop`.
+- To check if a property with the given key exists: `"key" in obj`.
+- To iterate over an object: `for(let key in obj)` loop.
 
-Les objets sont assignés et copiés par référence. En d'autres termes, une variable stocke non pas la "valeur d'objet", mais une "référence" (adresse en mémoire) pour la valeur. Donc, copier une telle variable ou la passer comme argument de fonction copie cette référence, pas l'objet. Toutes les opérations via des références copiées (telles que l'ajout / la suppression de propriétés) sont effectuées sur le même objet.
+Objects are assigned and copied by reference. In other words, a variable stores not the "object value", but a "reference" (address in memory) for the value. So copying such a variable or passing it as a function argument copies that reference, not the object. All operations via copied references (like adding/removing properties) are performed on the same single object.
 
-Pour faire une "copie réelle" (un clone), nous pouvons utiliser `Object.assign` ou  [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep).
+To make a "real copy" (a clone) we can use `Object.assign` or  [_.cloneDeep(obj)](https://lodash.com/docs#cloneDeep).
 
-Ce que nous avons étudié dans ce chapitre s’appelle un "objet simple" (plain object) ou juste `Object`.  
-Il existe de nombreux autres types d'objets en JavaScript :
+What we've studied in this chapter is called a "plain object", or just `Object`.
 
-- `Array` pour stocker des collections de données ordonnées,
-- `Date` pour stocker des informations sur la date et l'heure,
-- `Error` pour stocker des informations sur une erreur.
-- … Etc.
+There are many other kinds of objects in JavaScript:
 
-Ils ont leurs particularités que nous étudierons plus tard. Parfois, les gens disent quelque chose comme "Type de tableau" ou "Type de date", mais ils ne sont pas formellement propres, mais appartiennent à un seul type de données "objet". Et ils l'étendent de différentes manières.
+- `Array` to store ordered data collections,
+- `Date` to store the information about the date and time,
+- `Error` to store the information about an error.
+- ...And so on.
 
-Les objets en JavaScript sont très puissants. Nous venons de gratter la surface d’un sujet vraiment énorme. Nous allons travailler étroitement avec les objets et en apprendre davantage à leur sujet dans d’autres parties du tutoriel.
+They have their special features that we'll study later. Sometimes people say something like "Array type" or "Date type", but formally they are not types of their own, but belong to a single "object" data type. And they extend it in various ways.
+
+Objects in JavaScript are very powerful. Here we've just scratched the surface of a topic that is really huge. We'll be closely working with objects and learning more about them in further parts of the tutorial.
